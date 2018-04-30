@@ -88,24 +88,20 @@ func main() {
 	}
 	fmt.Printf("Found %d peers!\n", len(peers))
 
-	// Using the sha256 of our "topic" as our rendezvous value
-	c, _ = cid.NewPrefixV1(cid.Raw, multihash.SHA2_256).Sum([]byte("libp2p-demo-chat"))
+	// Now connect to them!
+	for _, p := range peers {
+		if p.ID == host.ID() {
+			// No sense connecting to ourselves
+			continue
+		}
 
-	// First, announce ourselves as participating in this topic
-	fmt.Println("announcing ourselves...")
-	tctx, _ = context.WithTimeout(ctx, time.Second*10)
-	if err := dht.Provide(tctx, c, true); err != nil {
-		panic(err)
+		tctx, _ := context.WithTimeout(ctx, time.Second*5)
+		if err := host.Connect(tctx, p); err != nil {
+			fmt.Println("failed to connect to peer: ", err)
+		}
 	}
 
-	// Now, look for others who have announced
-	fmt.Println("searching for other peers...")
-	tctx, _ = context.WithTimeout(ctx, time.Second*10)
-	peers, err = dht.FindProviders(tctx, c)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("Found %d peers!\n", len(peers))
+	fmt.Println("bootstrapping and discovery complete!")
 
 	sub, err := fsub.Subscribe(TopicName)
 	if err != nil {
