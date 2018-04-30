@@ -29,6 +29,7 @@ import (
 )
 
 func main() {
+	TopicName := "libp2p-demo-chat"
 	ctx := context.Background()
 
 	// Set up a libp2p host.
@@ -88,11 +89,11 @@ func main() {
 	fmt.Printf("Found %d peers!\n", len(peers))
 
 	// Using the sha256 of our "topic" as our rendezvous value
-	c, _ := cid.NewPrefixV1(cid.Raw, multihash.SHA2_256).Sum([]byte("libp2p-demo-chat"))
+	c, _ = cid.NewPrefixV1(cid.Raw, multihash.SHA2_256).Sum([]byte("libp2p-demo-chat"))
 
 	// First, announce ourselves as participating in this topic
 	fmt.Println("announcing ourselves...")
-	tctx, _ := context.WithTimeout(ctx, time.Second*10)
+	tctx, _ = context.WithTimeout(ctx, time.Second*10)
 	if err := dht.Provide(tctx, c, true); err != nil {
 		panic(err)
 	}
@@ -100,7 +101,7 @@ func main() {
 	// Now, look for others who have announced
 	fmt.Println("searching for other peers...")
 	tctx, _ = context.WithTimeout(ctx, time.Second*10)
-	peers, err := dht.FindProviders(tctx, c)
+	peers, err = dht.FindProviders(tctx, c)
 	if err != nil {
 		panic(err)
 	}
