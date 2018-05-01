@@ -18,11 +18,9 @@ import (
 	//"github.com/libp2p/go-libp2p-host"
 	//"github.com/libp2p/go-libp2p-kad-dht"
 	//"github.com/libp2p/go-libp2p-peerstore"
-
 	//"github.com/ipfs/go-cid"
 	//"github.com/ipfs/go-datastore"
 	//"github.com/ipfs/go-ipfs-addr"
-
 
 	// For now we use gx instead:
 	"gx/ipfs/QmNh1kGFFdsPu79KNSaL4NUKUPb4Eiz4KHdMtFY6664RDp/go-libp2p"
