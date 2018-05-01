@@ -1,34 +1,21 @@
 package main
 
 import (
-    "bufio"
+	"bufio"
 	"context"
 	"fmt"
 	"os"
 	"time"
 
 	"github.com/multiformats/go-multihash"
-
-	// TODO:  Would be nice to use github imports instead of gx since
-	// a libp2p demo should not rely on any higher level abstractions 
-	// like IPFS
-	//"github.com/libp2p/go-floodsub"
-	//"github.com/libp2p/go-libp2p"
+	"github.com/libp2p/go-floodsub"
+	"github.com/libp2p/go-libp2p"
 	//"github.com/libp2p/go-libp2p-host"
-	//"github.com/libp2p/go-libp2p-kad-dht"
-	//"github.com/libp2p/go-libp2p-peerstore"
-	//"github.com/ipfs/go-cid"
-	//"github.com/ipfs/go-datastore"
-	//"github.com/ipfs/go-ipfs-addr"
-
-	// For now we use gx instead:
-	"gx/ipfs/QmNh1kGFFdsPu79KNSaL4NUKUPb4Eiz4KHdMtFY6664RDp/go-libp2p"
-	"gx/ipfs/QmSFihvoND3eDaAYRCeLgLPt62yCPgMZs1NSZmKFEtJQQw/go-libp2p-floodsub"
-	"gx/ipfs/QmY1y2M1aCcVhy8UuTbZJBvuFbegZm47f9cDAdgxiehQfx/go-libp2p-kad-dht"
-	"gx/ipfs/QmXauCuJzmzapetmC6W4TuDJLL1yFFrVzSHoWv8YdbmnxH/go-libp2p-peerstore"
-	"gx/ipfs/QmcZfnkapfECQGcLZaf9B79NRg7cRa9EnZh4LSbkCzwNvY/go-cid"
-	"gx/ipfs/QmXRKBQA4wXP7xWbFiZsR1GP4HV6wMDQ1aWFxZZ4uBcPX9/go-datastore"
-	"gx/ipfs/QmQViVWBHbU6HmYjXcdNq7tVASCNgdg64ZGcauuDkLCivW/go-ipfs-addr"
+	"github.com/libp2p/go-libp2p-kad-dht"
+	"github.com/libp2p/go-libp2p-peerstore"
+	"github.com/ipfs/go-cid"
+	"github.com/ipfs/go-datastore"
+	"github.com/ipfs/go-ipfs-addr"
 )
 
 func main() {
