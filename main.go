@@ -60,7 +60,7 @@ func main() {
 	}
 
 	// Using the sha256 of our "topic" as our rendezvous value
-	c, _ := cid.NewPrefixV1(cid.Raw, multihash.SHA2_256).Sum([]byte("libp2p-demo-chat"))
+	c, _ := cid.NewPrefixV1(cid.Raw, multihash.SHA2_256).Sum([]byte(TopicName))
 
 	// First, announce ourselves as participating in this topic
 	fmt.Println("announcing ourselves...")
