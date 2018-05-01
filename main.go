@@ -8,6 +8,11 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/multiformats/go-multihash"
+
+	// TODO:  Would be nice to use github imports instead of gx since
+	// a libp2p demo should not rely on any higher level abstractions 
+	// like IPFS
 	//"github.com/libp2p/go-floodsub"
 	//"github.com/libp2p/go-libp2p"
 	//"github.com/libp2p/go-libp2p-host"
@@ -18,9 +23,9 @@ import (
 	//"github.com/ipfs/go-datastore"
 	//"github.com/ipfs/go-ipfs-addr"
 
-	"github.com/multiformats/go-multihash"
 
-	 "gx/ipfs/QmNh1kGFFdsPu79KNSaL4NUKUPb4Eiz4KHdMtFY6664RDp/go-libp2p"
+	// For now we use gx instead:
+	"gx/ipfs/QmNh1kGFFdsPu79KNSaL4NUKUPb4Eiz4KHdMtFY6664RDp/go-libp2p"
 	"gx/ipfs/QmSFihvoND3eDaAYRCeLgLPt62yCPgMZs1NSZmKFEtJQQw/go-libp2p-floodsub"
 	"gx/ipfs/QmY1y2M1aCcVhy8UuTbZJBvuFbegZm47f9cDAdgxiehQfx/go-libp2p-kad-dht"
 	"gx/ipfs/QmXauCuJzmzapetmC6W4TuDJLL1yFFrVzSHoWv8YdbmnxH/go-libp2p-peerstore"
