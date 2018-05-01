@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"os/signal"
 	"time"
 
 	//"github.com/libp2p/go-floodsub"
@@ -31,6 +32,25 @@ import (
 func main() {
 	TopicName := "libp2p-demo-chat"
 	ctx := context.Background()
+
+	// Trap Ctrl+C and cleanup before exit
+	sigIntChan := make(chan os.Signal, 1)
+	signal.Notify(sigIntChan, os.Interrupt)
+	go func(){
+		for sig := range sigIntChan {
+			// sig is a ^C, handle it
+			fmt.Println("Cleaning up... (Ctrl+C again to abort)")
+
+			// unregister the signal handler
+			signal.Stop(sigIntChan)
+
+			// cleanup
+			// TODO:  not sure what to do here to remove this peer from DHT...
+
+			// terminate
+			os.Exit(0)
+		}
+	}()
 
 	// Set up a libp2p host.
 	host, err := libp2p.New(ctx, libp2p.Defaults)
