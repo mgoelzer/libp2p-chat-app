@@ -8,6 +8,7 @@ To start, make sure you have Go installed and set up. Then install libp2p and so
 go get -u github.com/libp2p/go-libp2p
 go get -u github.com/libp2p/go-floodsub
 go get -u github.com/libp2p/go-libp2p-kad-dht
+go get -u github.com/ipfs/go-ipfs-addr
 ```
 
 Now for some code, We will start with a few imports. These imports include go-libp2p itself, our pubsub library "floodsub", the IPFS DHT, and a few other helper packages to tie things together. 
@@ -24,7 +25,6 @@ import (
 
 	"github.com/libp2p/go-floodsub"
 	"github.com/libp2p/go-libp2p"
-	"github.com/libp2p/go-libp2p-host"
 	"github.com/libp2p/go-libp2p-kad-dht"
 	"github.com/libp2p/go-libp2p-peerstore"
 
@@ -99,7 +99,8 @@ Next up the rendezvous. We need a way for users of our app to automatically find
 
 ```go
 // Using the sha256 of our "topic" as our rendezvous value
-c, _ := cid.NewPrefixV1(cid.Raw, multihash.SHA2_256).Sum([]byte("libp2p-demo-chat"))
+TopicName := "libp2p-demo-chat"
+c, _ = cid.NewPrefixV1(cid.Raw, multihash.SHA2_256).Sum([]byte(TopicName))
 
 // First, announce ourselves as participating in this topic
 fmt.Println("announcing ourselves...")
@@ -111,7 +112,7 @@ if err := dht.Provide(tctx, c, true); err != nil {
 // Now, look for others who have announced
 fmt.Println("searching for other peers...")
 tctx, _ = context.WithTimeout(ctx, time.Second*10)
-peers, err := dht.FindProviders(tctx, c)
+peers, err = dht.FindProviders(tctx, c)
 if err != nil {
 	panic(err)
 }
@@ -123,12 +124,12 @@ This process might take a while, As I said earlier, booting up a DHT node from s
 ```go
 // Now connect to them!
 for _, p := range peers {
-	if p == host.ID() {
+	if p.ID == host.ID() {
 		// No sense connecting to ourselves
 		continue
 	}
 
-	tctx, _ := context.WithTimeout(ctx, time.Second*5)
+	tctx, _ = context.WithTimeout(ctx, time.Second*5)
 	if err := host.Connect(tctx, p); err != nil {
 		fmt.Println("failed to connect to peer: ", err)
 	}
