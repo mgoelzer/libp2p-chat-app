@@ -17,7 +17,7 @@ Now for some code, We will start with a few imports. These imports include go-li
 package main
 
 import (
-    "bufio"
+	"bufio"
 	"context"
 	"fmt"
 	"os"
@@ -112,7 +112,7 @@ if err := dht.Provide(tctx, c, true); err != nil {
 // Now, look for others who have announced
 fmt.Println("searching for other peers...")
 tctx, _ = context.WithTimeout(ctx, time.Second*10)
-peers, err = dht.FindProviders(tctx, c)
+peers, err := dht.FindProviders(tctx, c)
 if err != nil {
 	panic(err)
 }

@@ -12,8 +12,6 @@ Chat app demo based on @whyrusleeping's gist.
 
         tctx, _ := context.WithTimeout(ctx, time.Second*10)
 
-        peers, err := dht.FindProviders(tctx, c)
-
  * Set `TopicName` variable by adding this as the first line of the `main()` function:
 
         TopicName := "libp2p-demo-chat"
