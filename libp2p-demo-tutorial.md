@@ -52,6 +52,8 @@ func main() {
 }
 ```
 
+(Further reading:  the libp2p host constructor is discussed in detail in [libp2p/go-libp2p/pull/241](https://github.com/libp2p/go-libp2p/pull/241) comments)
+
 Next, we set up our libp2p "floodsub" pubsub instance. This is how we will communicate with other users of our app. It gives us a simple many to many communication primitive to play with.
 
 ```go
